@@ -1,56 +1,49 @@
 import logo from './logo.svg';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import Form from './components/Form';
 import './App.css';
 
 function App() {
 
-const [peopleList, setPeopleList] = useState({fName:'', lName:''});
+  const [members, setMembers] = useState([]);
+  const [values, setValues] = useState('');
 
-const changeList = (evt => {
-  setPeopleList ({...peopleList, [evt.target.fName]: evt.target.value });
-  setPeopleList ({...peopleList, [evt.target.lName]: evt.target.value });
-})
 
-const handleSubmit = (evt) => {
-  evt.preventDefault();
-  setPeopleList({ fName:'', lName:''});
-  
-}
-console.log(peopleList)
-  return(
-     <div>
+  const onSubmit = (evt) => {
+    console.log(setMembers)
+    setMembers([values, ...members])
+    
+  }
+
+  const onChange = (name, value) => {
+    setValues({ ...values, [name]: value })
+    
+  }
+
+  return (
+    <div>
       <h1>Name Lister</h1>
       <h3>Please Enter your first and last name below.</h3>
-      <form onSubmit={(evt) => handleSubmit(evt)}>
-        <label>
-          First Name:
-          <input 
-          type='text'
-          name = 'First Name'
-          value={peopleList.fName}  
-          onChange ={(evt) => changeList(evt)}
-          />
-        </label>
-        <label>
-          Last Name:
-          <input 
-          type='text'
-          name = 'First Name'
-          value={peopleList.lName}  
-          onChange ={(evt) => changeList(evt)}
-          /> 
-        </label>
-        <button>Submit</button>
-      </form>
-      <ul>
-        <li>
+      <Form
+        values={values}
+        change={onChange}
+        submit={onSubmit}
 
-        </li>
-      </ul>
+      />
 
-      </div>
-  )
- 
+      {members.map((member, idx) => {
+        return (
+          <div key={idx}>
+            <li>
+              {member.name}
+          
+            </li>
+          </div>
+        )
+      })}
+    </div>
+  );
+
 }
 
 export default App;
