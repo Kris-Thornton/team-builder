@@ -1,20 +1,34 @@
 import React, { useState } from "react";
 
-// Change Handlers
 
-    
 
 
 
 // --------------------Markup that is passed to App.js for DOM----------
 
     const Form = (props) => {
+
+
+// Change Handlers
+
+    const handleChange = evt => {
+        const { name, value } = evt.target;
+
+        props.change(name, value);
+    }
+
+    const handleSubmit = evt => {
+        evt.preventDefault();
+        props.submit();
+    }
+
+
         return (
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label>Name
                 <input
                     placeholder='name'
-                    value={values.name}
+                    value={props.values.name}
                     name='name'
                     onChange={handleChange}
                 />
@@ -22,7 +36,7 @@ import React, { useState } from "react";
                 <label>Email
                 <input
                     placeholder='Enter Email'
-                    value={values.email}
+                    value={props.values.email}
                     name='email'
                     onChange={handleChange}
                 />
@@ -30,7 +44,7 @@ import React, { useState } from "react";
                 <label>Role
                 <input  
                     placeholder='Enter your role here'
-                    value={values.role}
+                    value={props.values.role}
                     name='role'
                     onChange={handleChange}
                 />
